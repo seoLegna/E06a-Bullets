@@ -88,8 +88,15 @@ class Window(arcade.Window):
     def update(self, delta_time):
         self.bullet_list.update()
         for e in self.enemy_list:
-            # check for collision
-            # for every bullet that hits, decrease the hp and then see if it dies
+            damage = arcade.check_for_collision_with_list(e, self.bullet_list)
+            for d in damage:
+                e.hp -= d.damage:
+                d.kill()
+                if e.hp <= 0:
+                    self.score += KILL_SCORE
+                    e.kill()
+                else:
+                    self.score += HIT_SCORE
             # increase the score
             # e.kill() will remove the enemy sprite from the game
             # the pass statement is a placeholder. Remove line 81 when you add your code
